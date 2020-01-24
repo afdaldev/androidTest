@@ -19,7 +19,7 @@ interface CategoryLocalDataSource {
 
     fun getCategories(): Flowable<List<Category>>
     fun insertCategory(category: CategoryModel)
-    fun deleteCategory()
+    fun deleteCategory(id: Int?)
 
     class Local(private val databaseFactory: DatabaseFactory) : CategoryLocalDataSource {
         override fun getCategories(): Flowable<List<Category>> =
@@ -31,8 +31,8 @@ interface CategoryLocalDataSource {
             databaseFactory.categoryDao().insertCategory(category)
         }
 
-        override fun deleteCategory() {
-            databaseFactory.categoryDao().deleteCategory()
+        override fun deleteCategory(id: Int?) {
+            databaseFactory.categoryDao().deleteCategory(id)
         }
     }
 }

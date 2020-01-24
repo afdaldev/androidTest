@@ -37,5 +37,5 @@ val categoriesModule = module {
     single<CategoryLocalDataSource> { CategoryLocalDataSource.Local(get()) }
     single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
     factory { GetCategoriesUseCase(get(), get()) }
-    viewModel { CategoryViewModel(get()) }
+    viewModel { CategoryViewModel(get(), get()) }
 }

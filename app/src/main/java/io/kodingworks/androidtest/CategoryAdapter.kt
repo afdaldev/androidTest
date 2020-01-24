@@ -8,7 +8,8 @@ import com.squareup.picasso.Picasso
 import io.kodingworks.domain.models.Category
 import kotlinx.android.synthetic.main.category_item.view.*
 
-class CategoryAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
+class CategoryAdapter(private val longClickListener: (Category) -> Unit) :
+    RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private var categoryList: List<Category> = emptyList()
 
@@ -29,6 +30,10 @@ class CategoryAdapter : RecyclerView.Adapter<BaseViewHolder<*>>() {
         val list = categoryList[position]
         when (holder) {
             is CategoryViewHolder -> holder.bind(list)
+        }
+        holder.itemView.setOnLongClickListener {
+            longClickListener(list)
+            true
         }
     }
 

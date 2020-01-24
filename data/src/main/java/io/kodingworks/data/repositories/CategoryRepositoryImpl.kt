@@ -24,8 +24,8 @@ class CategoryRepositoryImpl(
                 d("TAG", "CONNECT")
                 val data = remoteDataSource.getCategories()
                 data.subscribeOn(Schedulers.io())
-                    .subscribe {
-                        it.forEach {
+                    .subscribe { categoryList ->
+                        categoryList.forEach {
                             val category = CategoryModel(it.id, it.name, it.image, it.menuOrder)
                             localDataSource.insertCategory(category)
                         }

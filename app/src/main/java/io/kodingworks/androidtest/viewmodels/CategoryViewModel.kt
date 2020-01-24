@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.kodingworks.androidtest.state.Resource
 import io.kodingworks.androidtest.state.ResourceState
+import io.kodingworks.data.datasource.CategoryLocalDataSource
 import io.kodingworks.domain.interactors.categories.GetCategoriesUseCase
 import io.kodingworks.domain.models.Category
 import io.reactivex.subscribers.DisposableSubscriber
@@ -14,7 +15,8 @@ import io.reactivex.subscribers.DisposableSubscriber
  */
 
 class CategoryViewModel(
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val localDataSource: CategoryLocalDataSource
 ) : ViewModel() {
 
     val categories by lazy {
@@ -41,4 +43,6 @@ class CategoryViewModel(
             }
         }, isConnected)
     }
+
+    fun deleteCategoryFromLocal(id: Int?) = localDataSource.deleteCategory(id)
 }
