@@ -1,6 +1,7 @@
 package io.kodingworks.data.datasource
 
 import io.kodingworks.data.local.db.DatabaseFactory
+import io.kodingworks.data.local.model.CategoryModel
 import io.kodingworks.data.mapper.CategoryLocalMapper
 import io.kodingworks.domain.models.Category
 import io.reactivex.Flowable
@@ -17,8 +18,8 @@ import io.reactivex.Flowable
 interface CategoryLocalDataSource {
 
     fun getCategories(): Flowable<List<Category>>
-    fun insertCategory(category: Category)
-    fun deleteCategoryById(id: Int)
+    fun insertCategory(category: CategoryModel)
+    fun deleteCategory()
 
     class Local(private val databaseFactory: DatabaseFactory) : CategoryLocalDataSource {
         override fun getCategories(): Flowable<List<Category>> =
@@ -26,12 +27,12 @@ interface CategoryLocalDataSource {
                 it.map(CategoryLocalMapper::mapToDomain)
             }
 
-        override fun insertCategory(category: Category) {
+        override fun insertCategory(category: CategoryModel) {
             databaseFactory.categoryDao().insertCategory(category)
         }
 
-        override fun deleteCategoryById(id: Int) {
-            databaseFactory.categoryDao().deleteCategoryById(id)
+        override fun deleteCategory() {
+            databaseFactory.categoryDao().deleteCategory()
         }
     }
 }
